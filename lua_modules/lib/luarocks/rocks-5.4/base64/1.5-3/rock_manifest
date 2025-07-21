@@ -1,0 +1,9 @@
+rock_manifest = {
+   ["base64-1.5-3.rockspec"] = "209b14010706979dfc16f614d6868d68",
+   doc = {
+      ["README.md"] = "e7dc6f2eff81fbf3ac683aaff06550dc"
+   },
+   lua = {
+      ["base64.lua"] = "e1b9dd041739048040bcfb2f2a2ecab8"
+   }
+}
