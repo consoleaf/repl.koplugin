@@ -54,6 +54,7 @@ end
 sync_repl.results = ""
 sync_repl.error = ""
 sync_repl.output = {}
+sync_repl.chunk_env = {}
 
 function sync_repl:displayresults(results)
 	sync_repl.results = results
@@ -77,8 +78,18 @@ function sync_repl:getcontext()
 		table.insert(sync_repl.output, table.concat(args_to_string, "\t"))
 	end
 
+	for key, value in pairs(self.chunk_env) do
+		chunk_env[key] = value
+	end
+
 	-- Return this modified environment for chunk execution
 	return chunk_env
+end
+
+---@param key string
+---@param value any
+function sync_repl:setcontext(key, value)
+	self.chunk_env[key] = value
 end
 
 return sync_repl

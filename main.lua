@@ -31,6 +31,7 @@ end
 
 function Repl:init()
 	self:onDispatcherRegisterActions()
+	myrepl:setcontext("ui", self.ui)
 end
 
 ---@param code string
