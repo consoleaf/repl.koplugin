@@ -3,5 +3,5 @@ return {
 	name = "Repl",
 	fullname = _("Repl"),
 	description = _([[This is a WIP Repl plugin.]]),
-	version = "v0.0.2",
+	version = "v0.0.3",
 }

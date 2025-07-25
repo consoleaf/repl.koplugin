@@ -44,7 +44,19 @@ function Repl:repl(code, context_id)
 	code = base64.decode(code)
 	local res = repl.repl_evaluator(code, context_id)
 	if type(res.ret) == "table" then
-		res.ret = inspect(#res.ret > 1 and res.ret or res.ret[1])
+		local ret = #res.ret > 1 and res.ret or res.ret[1]
+		if ret == self.ui then
+			res.ret = inspect(ret, { depth = 1 })
+		else
+			res.ret = inspect(ret, {
+				-- depth = 4,
+				process = function(item, path)
+					if item ~= self.ui then
+						return item
+					end
+				end,
+			})
+		end
 	elseif res.ret == nil then
 		res.ret = "<nil>"
 	end
