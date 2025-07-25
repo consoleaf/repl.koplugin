@@ -18,7 +18,7 @@ package.path = "plugins/repl.koplugin/lua_modules/share/lua/5.4/?.lua;"
 	.. package.path
 
 local base64 = require("base64")
-local myrepl = require("myrepl")
+local repl = require("myrepl")
 
 local Repl = WidgetContainer:extend({
 	name = "Repl",
@@ -31,27 +31,18 @@ end
 
 function Repl:init()
 	self:onDispatcherRegisterActions()
-	myrepl:setcontext("ui", self.ui)
+	-- myrepl:setcontext("ui", self.ui)
+	-- myrepl:setcontext("UIManager", UIManager)
 end
 
 ---@param code string
-function Repl:repl(code)
+---@param context_id? string
+function Repl:repl(code, context_id)
+	repl.repl_set_context_value("ui", self.ui, context_id)
+	repl.repl_set_context_value("UIManager", self.ui, context_id)
 	code = base64.decode(code)
-	local res = myrepl:handleline(code)
-	if res == 2 then
-		return { error = "code is incomplete" }
-	end
-	local out = myrepl.output
-	local results = myrepl.results
-	myrepl.output = {}
-	myrepl.results = ""
-	myrepl.error = ""
-	self:clean()
-	return { ret = results, out = out, error = myrepl.error }
-end
-
-function Repl:clean()
-	myrepl._buffer = ""
+	local res = repl.repl_evaluator(code, context_id)
+	return res
 end
 
 return Repl
