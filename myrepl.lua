@@ -1,3 +1,5 @@
+--- This is a heavily modified version of https://github.com/YaroSpace/lua-console.nvim/blob/main/lua/lua-console/utils.lua
+
 -- Global table to store REPL contexts. Each context will have its own environment,
 -- user-defined variables, code buffer, and print buffer.
 local _REPL_CONTEXTS = {}
